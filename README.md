@@ -17,12 +17,10 @@ The data is worth investigating as it is well organized and recorded many detail
 
 Reference
 ----------------------------
-Krzysztof Kałwak, Julita Porwolik, Monika Mielcarek, Ewa Gorczyńska, Joanna Owoc-Lempach, Marek Ussowicz, Agnieszka Dyla, Jakub Musiał, Dominika Paździor, Dominik Turkiewicz, Alicja Chybicka,
-Higher CD34+ and CD3+ Cell Doses in the Graft Promote Long-Term Survival, and Have No Impact on the Incidence of Severe Acute or Chronic Graft-versus-Host Disease after In Vivo T Cell-Depleted Unrelated Donor Hematopoietic Stem Cell Transplantation in Children,
+Krzysztof Kałwak, etc. Higher CD34+ and CD3+ Cell Doses in the Graft Promote Long-Term Survival, and Have No Impact on the Incidence of Severe Acute or Chronic Graft-versus-Host Disease after In Vivo T Cell-Depleted Unrelated Donor Hematopoietic Stem Cell Transplantation in Children,
 Biology of Blood and Marrow Transplantation,
 Volume 16, Issue 10,
 2010,
 Pages 1388-1401,
 ISSN 1083-8791,
 https://doi.org/10.1016/j.bbmt.2010.04.001.
-(https://www.sciencedirect.com/science/article/pii/S1083879110001485)

@@ -66,7 +66,7 @@ depends on) by simply issueing the command to make it.
 The final report
 ================
 
-The final report is wrote using overleaf, you can find it in `Overleaf/Final_Report.pdf`, and the source code to generate it can be seen in folder `Overleaf`.
+The final report is wrote using overleaf.
 
 
 

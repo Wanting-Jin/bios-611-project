@@ -11,4 +11,3 @@ clean:
 figures/Plot_Cor.png figures/Plot_PCA.png: bone-marrow.csv\
  BIOS611_Project_Dataprocessing.R
 	Rscript BIOS611_Project_Dataprocessing.R
-

@@ -5,7 +5,7 @@ clean:
 	rm -rf figures/*
 	rm -rf derived_data/*
 	rm -rf tables/*
-
+	rm -r BIOS611_Project_Report.html
 
 
 # Data Processing and Summary Statistics and Plots of the dataset

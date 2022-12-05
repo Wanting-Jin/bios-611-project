@@ -1,11 +1,10 @@
 .PHONY: clean
 
 clean:
+	
 	rm -rf figures/*
 	rm -rf derived_data/*
 	rm -rf tables/*
-	rm -f BIOS611_Project_Report.html
-
 
 
 

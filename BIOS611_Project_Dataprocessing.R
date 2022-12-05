@@ -2,12 +2,61 @@
 library(tidyverse)
 library(reshape2)
 library(ggplot2)
+library(gtsummary)
+library(flextable)
+library(webshot)
+webshot::install_phantomjs(force = TRUE)
 
 ## Read in the Data Set
 data <- read.csv("bone-marrow.csv")
-data$Disease <- as.numeric(as.factor(data$Disease))
+data <- data[,c(3:4,7,12,23:24,1,32,8:9,13:14,17,6,10,11,22,15,2,16,29:31,33:34,27,35,28,26,36:37)]
+
+data1 <- data %>%
+  mutate(
+    DonorABO = case_when(DonorABO=='-1'~'O',
+                         DonorABO=='0'~'A',
+                         DonorABO=='1'~'B',
+                         DonorABO=='2'~'AB'),
+    RecipientABO = case_when(RecipientABO=='-1'~'O',
+                             RecipientABO=='0'~'A',
+                             RecipientABO=='1'~'B',
+                             RecipientABO=='2'~'AB'),
+    time_to_ANCrec = ANCrecovery,
+    ANCrecovery = as.numeric(ANCrecovery<1000000),
+    time_to_PLTrec = PLTrecovery,
+    PLTrecovery = as.numeric(PLTrecovery<1000000),
+    aGvHDIIIIV = as.numeric(aGvHDIIIIV==0),
+    extcGvHD = as.numeric(extcGvHD==0),
+    Txpostrelapse = as.numeric(Txpostrelapse==0),
+  )
+
+data1[data1$aGvHDIIIIV==0,"time_to_aGvHD_III_IV"] <- NA
+data1[data1$PLTrecovery==0,"time_to_PLTrec"] <- NA
+data1[data1$ANCrecovery==0,"time_to_ANCrec"] <- NA
+
+write.csv(data1,file = "derived_data/processed-bone-marrow.csv")
+
+## Summary statistics for the dataset
+table1 <- data1 %>%
+  #  select(Enthusiasm,Gender)  %>%
+  tbl_summary(by = survival_status,missing = "ifany",
+              type = list(CMVstatus~"continuous",HLAgrI~"continuous"),
+              statistic = list(all_continuous()~c("{mean} ({sd})"),all_categorical()~"{n}({p}%)"),
+              digits = list(all_continuous()~c(1,2)),
+              label = list())%>%
+  modify_caption("**Table 1. Patient Characteristics**") %>%
+  add_overall()%>%
+  add_p()%>%
+  bold_labels()%>%
+  as_flex_table()
+table1
+
+
+save_as_image(table1,path = "tables/Table1.png")
+
 
 ## Correlation Matrix For covariates
+data$Disease <- as.numeric(as.factor(data$Disease))
 
 get_upper_tri <- function(cormat){
   cormat[lower.tri(cormat)]<- NA
@@ -59,21 +108,3 @@ corr_all = round(corr_all,4)
 plot_corr(corr_all,'Pearson Correlation Matrix among Variables of Concern')
 
 ggsave('figures/Plot_Cor.png',width = 10,height = 10)
-
-
-
-## Dimension Reduction By PCA
-data_complete = data[complete.cases(data),]
-pca <- prcomp(data_complete[,1:32])
-pca
-summary(pca)
-
-ggplot(pca$x %>% as_tibble() %>% select(PC1, PC2), aes(PC1, PC2)) + 
-  geom_point(aes(col = as.factor(data_complete$survival_status))) +
-  labs(col="Survival Status")
-
-ggsave('figures/Plot_PCA.png',width = 8,height = 6)
-
-
-
-
